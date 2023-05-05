@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Pokedex from "../../assets/Daco_4582111.png";
 import Background from "../../assets/fundoscreen.jpg";
 import Logo from "../../assets/logopoke.png";
@@ -28,9 +29,11 @@ function Home() {
             <div className="infos">
               <h1>Charmander</h1>
               <h2>LVL - 123</h2>
-              <div className="buttonSM">
-                <button>See More</button>
-              </div>
+              <Link to="/details/:id">
+                <div className="buttonSM">
+                  <button>See More</button>
+                </div>
+              </Link>
               <div className="btns">
                 <div className="skip">
                   <button>
