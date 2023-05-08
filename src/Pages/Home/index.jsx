@@ -1,58 +1,63 @@
 import { Link } from "react-router-dom";
-import Pokedex from "../../assets/Daco_4582111.png";
-import Background from "../../assets/fundoscreen.jpg";
-import Logo from "../../assets/logopoke.png";
+import Footer from "../../components/Footer";
+import Navbar from "../../components/Navbar";
+import axios from "axios";
+
+import { useEffect, useState } from "react";
 
 function Home() {
+  const [list, setList] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("https://pokeapi.co/api/v2/pokemon")
+      .then((response) => setList(response.data.results));
+  }, []);
   return (
     <>
-      <div className="all">
-        <div className="pokedex">
-          <img src={Pokedex} alt="pokedex" />
-          <div className="screen">
-            <div className="background">
-              <img src={Background} alt="background" />
-            </div>
-            <img
-              src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/back/4.gif"
-              alt=""
-            />
-          </div>
-          <div className="screen-info">dsjahjkdsahkjhdsk</div>
-          <div className="button-l"></div>
-          <div className="button-r"></div>
-          <div className="button-details"></div>
-        </div>
-        <div className="moreinfos">
-          <img src={Logo} alt="logo pokemon" />
-          <div className="name">
-            <div className="infos">
-              <h1>Charmander</h1>
-              <h2>LVL - 123</h2>
-              <Link to="/details/:id">
-                <div className="buttonSM">
-                  <button>See More</button>
-                </div>
-              </Link>
-              <div className="btns">
-                <div className="skip">
-                  <button>
-                    {" "}
-                    <i className="fa-solid fa-arrow-left"></i>{" "}
-                  </button>
-                </div>
-                <div className="return">
-                  <button>
-                    <i className="fa-solid fa-arrow-right"></i>{" "}
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <Navbar />
+      <div className="title">
+        <h1>Pokemon List:</h1>
       </div>
+      <div className="cards-field">
+        {list.map((item) => (
+          <div className="card">
+            <div className="interior">
+              <Pokemon data={item} />
+            </div>
+          </div>
+        ))}
+      </div>
+      <Footer />
     </>
   );
 }
 
+const Pokemon = ({ data }) => {
+  const [details, setDetails] = useState(null);
+
+  useEffect(() => {
+    axios.get(data.url).then((response) => setDetails(response.data));
+  }, []);
+  if (details === null) {
+    return <div> - </div>;
+  }
+
+  return (
+    <>
+      <div className="cardlink" key={details.id}></div>
+      <Link to={`/details/${details.id}`}>
+        <div className="image">
+          <img src={details.sprites.front_default} alt="pokemons" />
+        </div>
+        <div className="name">
+          <h1>{details.name}</h1>
+        </div>
+        <div className="experience">
+          <h3>EXP {details.base_experience}</h3>
+        </div>
+      </Link>
+    </>
+  );
+};
 export default Home;
