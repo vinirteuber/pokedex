@@ -2,31 +2,44 @@ import { Link } from "react-router-dom";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
 import axios from "axios";
-
 import { useEffect, useState } from "react";
 
 function Home() {
   const [list, setList] = useState([]);
 
+  function nextPage() {
+    axios.get(list.next).then((response) => setList(response.data));
+  }
+
+  function previousPage() {
+    axios.get(list.previous).then((response) => setList(response.data));
+  }
+
   useEffect(() => {
     axios
       .get("https://pokeapi.co/api/v2/pokemon")
-      .then((response) => setList(response.data.results));
+      .then((response) => setList(response.data));
   }, []);
+
   return (
     <>
       <Navbar />
       <div className="title">
         <h1>Pokemon List:</h1>
+        <div>
+          {list.previous && <span onClick={previousPage}>prev </span>}
+          <span onClick={nextPage}>next</span>
+        </div>
       </div>
       <div className="cards-field">
-        {list.map((item) => (
-          <div className="card">
-            <div className="interior">
-              <Pokemon data={item} />
+        {list.results !== undefined &&
+          list.results.map((item) => (
+            <div className="card" key={item.name}>
+              <div className="interior">
+                <Pokemon data={item} />
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
       <Footer />
     </>
