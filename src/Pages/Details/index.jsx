@@ -39,41 +39,33 @@ function Details() {
             <h1>{pokemon.name}</h1>
           </div>
           <div className="right">
-            <div className="top">
+            <div className="fisic">
               <h2>Fisic:</h2>
-              <div className="fisic">
-                <ul>
-                  <li>{pokemon.xp} - EXP</li>
-                  <li>{pokemon.weight} KG</li>
-                  <li>{pokemon.height * 100} CM</li>
-                </ul>
-              </div>
-              <h2>Abillity:</h2>
-              <div className="ability">
-                {pokemon.abilities !== undefined &&
-                  pokemon.abilities.map((ability) => (
-                    <ul>
-                      <li>{ability.ability.name}</li>
-                    </ul>
-                  ))}
-              </div>
-            </div>
-            <div className="bottom">
-              <div className="type">
-                {pokemon.types !== undefined &&
-                  pokemon.types.map((type) => <li>{type.type.name}</li>)}
-              </div>
 
-              <div className="stats">
-                {pokemon.stats !== undefined &&
-                  pokemon.stats.map((stat) => (
-                    <ul>
-                      <li>
-                        {stat.base_stat} - {stat.stat.name}
-                      </li>
-                    </ul>
-                  ))}
-              </div>
+              <span>{pokemon.xp} EXP</span>
+              <span>{pokemon.weight} KG</span>
+              <span>{pokemon.height * 100} CM</span>
+            </div>
+            <div className="ability">
+              <h2>Abillity:</h2>
+              {pokemon.abilities !== undefined &&
+                pokemon.abilities.map((ability) => (
+                  <span>{ability.ability.name}</span>
+                ))}
+            </div>
+            <div className="type">
+              <h2>Type</h2>
+              {pokemon.types !== undefined &&
+                pokemon.types.map((type) => <span>{type.type.name}</span>)}
+            </div>
+            <div className="stats">
+              <h2>Stats</h2>
+              {pokemon.stats !== undefined &&
+                pokemon.stats.map((stat) => (
+                  <span>
+                    {stat.base_stat} {stat.stat.name}
+                  </span>
+                ))}
             </div>
           </div>
         </div>

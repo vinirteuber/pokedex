@@ -26,7 +26,7 @@ function Home() {
       <Navbar />
       <div className="title">
         <h1>Pokemon List:</h1>
-        <div>
+        <div className="nextprev">
           {list.previous && <span onClick={previousPage}>prev </span>}
           <span onClick={nextPage}>next</span>
         </div>
