@@ -54,13 +54,11 @@ const Pokemon = ({ data }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setTimeout(() => {
-      axios.get(data.url).then((response) => {
-        setDetails(response.data);
-        setImage(response.data.sprites.front_default);
-        setLoading(false);
-      });
-    }, 1000);
+    axios.get(data.url).then((response) => {
+      setDetails(response.data);
+      setImage(response.data.sprites.front_default);
+      setLoading(false);
+    });
   }, []);
   if (loading) {
     return <Loading />;

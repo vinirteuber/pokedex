@@ -58,7 +58,9 @@ function Details() {
     steel: "#B7B7CE",
     fairy: "#D685AD",
   };
-
+  const statsStyle = {
+    color: Object.keys(pokemon).length > 0 && typeColors[types[0].type.name],
+  };
   const cardStyle = {
     backgroundColor:
       Object.keys(pokemon).length > 0 && typeColors[types[0].type.name],
@@ -90,14 +92,14 @@ function Details() {
           </div>
           <div className="right">
             <div className="fisic">
-              <h2>Fisic:</h2>
+              <h2 style={statsStyle}>Fisic:</h2>
 
               <span>{pokemon.xp} EXP</span>
               <span>{pokemon.weight} KG</span>
               <span>{pokemon.height * 100} CM</span>
             </div>
             <div className="ability">
-              <h2>Abillity:</h2>
+              <h2 style={statsStyle}>Abillity:</h2>
               {pokemon.abilities !== undefined &&
                 pokemon.abilities.map((ability) => (
                   <span>{ability.ability.name}</span>
@@ -109,12 +111,13 @@ function Details() {
                 pokemon.types.map((type) => <span>{type.type.name}</span>)}
             </div>
             <div className="stats">
-              <h2>Stats</h2>
+              <h2 style={statsStyle}>Stats</h2>
               {pokemon.stats !== undefined &&
                 pokemon.stats.map((stat) => (
-                  <span>
-                    {stat.base_stat} {stat.stat.name}
-                  </span>
+                  <div className="alinhar">
+                    <span style={statsStyle}>{stat.base_stat}</span>
+                    <span> - {stat.stat.name}</span>
+                  </div>
                 ))}
               <div className="desc"></div>
             </div>
