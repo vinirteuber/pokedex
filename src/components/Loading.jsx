@@ -4,6 +4,9 @@ function Loading() {
   return (
     <div className="loading">
       <img src={loading} alt="" />
+      <div>
+        <span>Carregando...</span>
+      </div>
     </div>
   );
 }
