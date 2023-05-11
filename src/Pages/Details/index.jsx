@@ -96,7 +96,7 @@ function Details() {
 
               <span>{pokemon.xp} EXP</span>
               <span>{pokemon.weight} KG</span>
-              <span>{pokemon.height * 100} CM</span>
+              <span>{pokemon.height * (30.48).toFixed(1)} CM</span>
             </div>
             <div className="ability">
               <h2 style={statsStyle}>Abillity:</h2>
