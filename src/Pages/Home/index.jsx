@@ -40,8 +40,8 @@ function Home() {
         <h1>Pokemon List:</h1>
 
         <div className="nextprev">
-          <span>{currentPage}</span>
           {list.previous && <span onClick={previousPage}>prev </span>}
+          <span>{currentPage}</span>
           {currentPage < 64 && <span onClick={nextPage}>next</span>}
         </div>
       </div>
