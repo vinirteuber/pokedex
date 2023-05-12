@@ -7,19 +7,30 @@ import Loading from "../../components/Loading";
 
 function Home() {
   const [list, setList] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
 
   function nextPage() {
-    axios.get(list.next).then((response) => setList(response.data));
+    axios.get(list.next).then((response) => {
+      setList(response.data);
+      setCurrentPage(currentPage + 1);
+    });
   }
 
   function previousPage() {
-    axios.get(list.previous).then((response) => setList(response.data));
+    axios.get(list.previous).then((response) => {
+      setList(response.data);
+      setCurrentPage(currentPage - 1);
+    });
   }
 
   useEffect(() => {
-    axios
-      .get("https://pokeapi.co/api/v2/pokemon")
-      .then((response) => setList(response.data));
+    axios.get("https://pokeapi.co/api/v2/pokemon").then((response) => {
+      setList(response.data);
+      setTotalPages(
+        Math.ceil(response.data.count / response.data.results.length)
+      );
+    });
   }, []);
 
   return (
@@ -27,9 +38,11 @@ function Home() {
       <Navbar />
       <div className="title">
         <h1>Pokemon List:</h1>
+
         <div className="nextprev">
+          <span>{currentPage}</span>
           {list.previous && <span onClick={previousPage}>prev </span>}
-          <span onClick={nextPage}>next</span>
+          {currentPage < 64 && <span onClick={nextPage}>next</span>}
         </div>
       </div>
       <div className="cards-field">
@@ -42,6 +55,9 @@ function Home() {
               </div>
             </div>
           ))}
+      </div>
+      <div className="page-count">
+        Page {currentPage} of {totalPages}
       </div>
       <Footer />
     </>

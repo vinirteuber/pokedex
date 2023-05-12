@@ -74,6 +74,10 @@ function Details() {
       <div className="title">
         <h1>Pokemon Details:</h1>
       </div>
+      <div className="act">
+        <button onClick={handleMouseEnter}>Costas</button>
+        <button onClick={handleMouseLeave}>Frente</button>
+      </div>
       <div className="all">
         <div className="container">
           <div className="pokemon" style={cardStyle}>
